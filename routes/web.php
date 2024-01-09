@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
         // santri
         Route::resource('santri', DataSantriController::class);
         // wali santri
+        Route::get('/search', [DataWaliSantriController::class, 'index'])->name('search');
         Route::resource('wali-santri',DataWaliSantriController::class);
         // asrama
         Route::resource('asrama',DataAsramaController::class);

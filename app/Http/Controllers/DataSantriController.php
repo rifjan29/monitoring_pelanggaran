@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataAsrama;
 use App\Models\DataSantri;
+use App\Models\DataWaliSantri;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\DataTables;
@@ -17,19 +19,7 @@ class DataSantriController extends Controller
     public function index(Request $request)
     {
         $param['title'] = 'List Santri';
-        if ($request->ajax()) {
-            $param['data'] = DataSantri::latest()->get();
-            return DataTables::of($param['data'])
-                    ->addIndexColumn()
-                    ->addColumn('action', function($row){
-
-                           $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
-
-                            return $btn;
-                    })
-                    ->rawColumns(['action'])
-                    ->make(true);
-        }
+        $param['data'] = DataSantri::latest()->get();
         return view('santri.index',$param);
     }
 
@@ -38,7 +28,10 @@ class DataSantriController extends Controller
      */
     public function create()
     {
-        //
+        $param['title'] = 'Tambah Santri';
+        $param['wali_santri'] = DataWaliSantri::latest()->pluck('id','nama');
+        $param['asrama'] = DataAsrama::latest()->pluck('id','nama_asrama');
+        return view('santri.create',$param);
     }
 
     /**

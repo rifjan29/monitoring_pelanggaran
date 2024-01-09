@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataWaliSantri;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     function index() {
-        return view('dashboard');
+        $param['wali_santri_count'] = DataWaliSantri::count();
+        return view('dashboard',$param);
     }
 }

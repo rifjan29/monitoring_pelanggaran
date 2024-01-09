@@ -12,6 +12,7 @@ class DataSantri extends Model
     protected $fillable = [
         'nama_lengkap',
         'foto',
+        'tanggal_lahir',
         'asal',
         'jenis_kelamin',
         'alamat_lengkap',
