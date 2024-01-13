@@ -11,7 +11,7 @@ class DataAsramaController extends Controller
      */
     public function index()
     {
-        //
+        return view('asrama.index');
     }
 
     /**
