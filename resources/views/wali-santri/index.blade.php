@@ -131,7 +131,7 @@
                             <tbody>
                                 @forelse ($data as $item)
                                     <tr class="border-b dark:border-gray-700">
-                                        <td class="px-4 py-3">1</td>
+                                        <td class="px-4 py-3">{{ $item->iteration }}</td>
                                         <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ ucwords($item->nama) }}</th>
                                         <td class="px-4 py-3">{{ $item->email }}</td>
                                         <td class="px-4 py-3">{{ $item->no_telp }}</td>

@@ -20,10 +20,13 @@ class DataSantri extends Model
         'asrama_id',
         'users_id',
         'kategori_sekolah',
+        'status',
+        'tanggal_lulus',
+        'status_pondok',
     ];
 
     function wali_santri() {
-        return $this->belongsTo(DataWaliSantri::class,'wali_santri_id');
+        return $this->belongsTo(DataWaliSantri::class,'wali_santri_id','id');
     }
 
     function asrama() {

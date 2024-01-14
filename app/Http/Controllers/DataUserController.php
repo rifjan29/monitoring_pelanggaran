@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DataUserController extends Controller
 {
@@ -11,7 +13,15 @@ class DataUserController extends Controller
      */
     public function index()
     {
-        //
+        $param['title'] = 'List User';
+        $query = User::latest();
+        if (Auth::user()->hasRole('admin')) {
+            $param['data'] = $query->paginate(10);
+        }else{
+            $param['data'] = $query->where('id',Auth::user()->id)->paginate(10);
+        }
+
+        return view('asrama.index',$param);
     }
 
     /**

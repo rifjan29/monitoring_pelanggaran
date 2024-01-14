@@ -31,11 +31,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
     Route::prefix('dashboard')->group(function () {
         // santri
+        Route::get('/search', [DataSantriController::class, 'index'])->name('santri.search-santri');
+        Route::post('update-status', [DataSantriController::class,'updateStatus'])->name('santri.update-status');
         Route::resource('santri', DataSantriController::class);
         // wali santri
         Route::get('/search', [DataWaliSantriController::class, 'index'])->name('search');
         Route::resource('wali-santri',DataWaliSantriController::class);
         // asrama
+        Route::get('/search-asrama', [DataAsramaController::class, 'index'])->name('asrama.search');
         Route::resource('asrama',DataAsramaController::class);
         // user
         Route::resource('user', DataUserController::class);
