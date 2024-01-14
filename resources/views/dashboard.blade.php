@@ -83,7 +83,7 @@
                     <div class="flex justify-between flex-row items-center px-4">
                         <div class="space-y-2">
                             <span class="text-sm font-medium text-gray-400 dark:text-gray-400">Total User</span>
-                            <h2 class="text-4xl font-bold dark:text-white">2000</h2>
+                            <h2 class="text-4xl font-bold dark:text-white">{{ $user_count }}</h2>
                         </div>
                         <div class="bg-blue-400 rounded-lg h-fit px-5 py-5">
                             <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">

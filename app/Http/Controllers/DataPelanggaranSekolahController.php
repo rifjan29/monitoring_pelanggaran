@@ -11,7 +11,8 @@ class DataPelanggaranSekolahController extends Controller
      */
     public function index()
     {
-        //
+        $param['title'] = 'List Pelanggaran Sekolah';
+        return view('');
     }
 
     /**

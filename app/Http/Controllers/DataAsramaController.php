@@ -23,7 +23,7 @@ class DataAsramaController extends Controller
         })
         ->latest()->paginate(10);
 
-        $title = 'Delete User!';
+        $title = 'Delete Asrama!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 

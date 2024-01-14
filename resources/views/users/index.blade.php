@@ -1,23 +1,22 @@
 <x-app-layout>
-    @include('asrama.modal.create')
-    @include('asrama.modal.show')
-    @include('asrama.modal.edit')
+    @include('users.modal.create')
+    @include('users.modal.show')
     @push('js')
         <script>
             // show
             $('.show-data').on('click',function() {
                 let id = $(this).data('id');
                 $.ajax({
-                    url: `{{ route('asrama.show', 1) }}`,
+                    url: `{{ route('user.show', 1) }}`,
                     data: {
                         id: id
                     },
                     method: "GET",
                     success: (res) => {
                         // Assuming you have a modal with an ID 'show-modal'
-                        $('#show-modal #nama_asrama').val(res.nama_asrama);
-                        $('#show-modal #wali_asuh').val(res.wali_asuh);
-                        $('#show-modal #keterangan').val(res.keterangan);
+                        $('#show-modal #name').val(res.name);
+                        $('#show-modal #email').val(res.email);
+                        $('#show-modal #roles').val(res.roles[0].name);
 
                         // Show the modal
                         $('#show-modal').removeClass('hidden');
@@ -29,7 +28,7 @@
             $('.edit-data').on('click',function() {
                 let id = $(this).data('id');
                 $.ajax({
-                    url: `{{ route('asrama.edit', 1) }}`,
+                    url: `{{ route('user.edit', 1) }}`,
                     data: {
                         id: id
                     },
@@ -86,7 +85,7 @@
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-visible h-full z-0">
                     <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                         <div class="w-full md:w-1/2">
-                            <form class="flex items-center" action="{{ route('asrama.search') }}" method="GET">
+                            <form class="flex items-center" action="{{ route('user.search') }}" method="GET">
                                 <label for="simple-search" class="sr-only">Search</label>
                                 <div class="relative w-full">
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -103,7 +102,7 @@
                                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                     <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                                 </svg>
-                                Tambah Asrama
+                                Tambah User
                             </button>
 
                         </div>
@@ -113,9 +112,9 @@
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th class="px-4 py-3">No</th>
-                                    <th scope="col" class="px-4 py-3">Nama Asrama</th>
-                                    <th scope="col" class="px-4 py-3">Wali Asuh</th>
-                                    <th scope="col" class="px-4 py-3">Keterangan</th>
+                                    <th scope="col" class="px-4 py-3">Nama </th>
+                                    <th scope="col" class="px-4 py-3">Email</th>
+                                    <th scope="col" class="px-4 py-3">Roles</th>
                                     <th scope="col" class="px-4 py-3">
                                         <span class="sr-only">Actions</span>
                                     </th>
@@ -125,9 +124,9 @@
                                 @forelse ($data as $item)
                                     <tr class="border-b dark:border-gray-700">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ ucwords($item->nama_asrama) }}</th>
-                                        <td class="px-4 py-3">{{ ucwords($item->wali_asuh) }}</td>
-                                        <td class="px-4 py-3">{{ $item->keterangan }}</td>
+                                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ ucwords($item->name) }}</th>
+                                        <td class="px-4 py-3">{{ $item->email }}</td>
+                                        <td class="px-4 py-3">{{ isset($item->roles[0]) ? ucwords($item->roles[0]->name) : '-' }}</td>
                                         <td class="px-4 py-3 flex items-center justify-end">
                                             <button id="{{ $item->id }}-button" data-dropdown-toggle="{{ $item->id }}-dropdown" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
                                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -139,14 +138,20 @@
                                                     <li>
                                                         <a href="#" data-modal-target="show-modal" data-modal-toggle="show-modal" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white show-data" data-id="{{ $item->id }}">Show</a>
                                                     </li>
-                                                    <li>
-                                                        <a href="#" data-modal-target="edit-modal" data-modal-toggle="edit-modal" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white edit-data" data-id="{{ $item->id }}">Edit</a>
-                                                    </li>
-
                                                 </ul>
-                                                <div class="py-1">
-                                                    <a href="{{ route('asrama.destroy', $item->id) }}" data-confirm-delete="true" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-                                                </div>
+                                                @if (Auth::user()->hasRole('admin'))
+                                                    @if (Auth::user()->id != $item->id)
+                                                    <div class="py-1">
+                                                        <a href="{{ route('user.destroy', $item->id) }}" data-confirm-delete="true" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
+                                                    </div>
+                                                    @endif
+                                                @else
+                                                    @if (!Auth::user()->id == $item->id)
+                                                    <div class="py-1">
+                                                        <a href="{{ route('user.destroy', $item->id) }}" data-confirm-delete="true" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
+                                                    </div>
+                                                    @endif
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>

@@ -6,7 +6,7 @@
             <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Tambah Asrama
+                    Tambah User
                 </h3>
                 <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="tambah-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -17,22 +17,37 @@
             </div>
             <!-- Modal body -->
             <div class="p-4 md:p-5 space-y-4">
-                <form action="{{ route('asrama.store') }}" method="POST" class="w-full mx-auto" >
+                <form action="{{ route('user.store') }}" method="POST" class="w-full mx-auto" >
                     @csrf
                     <div class="grid gap-4 grid-cols-2 sm:grid-cols-2 sm:gap-6 mb-5">
                         <div class="col-span-2 sm:col-span-2">
-                            <label for="nama_asrama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Asrama</label>
-                            <input type="text" name="nama_asrama" id="nama_asrama" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukkan nama asrama">
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama </label>
+                            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukkan nama">
                         </div>
                         <div class="col-span-2 sm:col-span-2">
-                            <label for="wali_asuh" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Wali Asuh</label>
-                            <input type="wali_asuh" name="wali_asuh" id="wali_asuh" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukkan wali asuh">
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                            <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukkan email">
                         </div>
 
                         <div class="col-span-2 sm:col-span-2">
-                            <label for="keterangan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Keterangan</label>
-                            <textarea id="keterangan" name="keterangan" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukkan keterangan..."></textarea>
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                            <input type="password" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan password">
                         </div>
+                        @if (Auth::user()->hasRole('admin'))
+                        <div class="col-span-2 sm:col-span-2">
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Roles</label>
+                            <select id="roles" name="roles" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="0">Pilih Hak Akses</option>
+                                <option value="admin">Admin</option>
+                                <option value="pondok">Pondok</option>
+                                <option value="mts">MTS</option>
+                                <option value="ma">MA</option>
+                                <option value="smk">SMK</option>
+                            </select>
+                        </div>
+                        @else
+                            <input type="hidden" name="roles" id="roles" value="{{ Auth::user()->roles->pluck('name')[0] }}">
+                        @endif
                     </div>
 
             </div>

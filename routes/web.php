@@ -31,7 +31,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
     Route::prefix('dashboard')->group(function () {
         // santri
-        Route::get('/search', [DataSantriController::class, 'index'])->name('santri.search-santri');
+        Route::get('/search-santri', [DataSantriController::class, 'index'])->name('santri.search-santri');
         Route::post('update-status', [DataSantriController::class,'updateStatus'])->name('santri.update-status');
         Route::resource('santri', DataSantriController::class);
         // wali santri
@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/search-asrama', [DataAsramaController::class, 'index'])->name('asrama.search');
         Route::resource('asrama',DataAsramaController::class);
         // user
+        Route::get('/search-user', [DataUserController::class, 'index'])->name('user.search');
         Route::resource('user', DataUserController::class);
         // pelanggaran sekolah
         Route::resource('pelanggaran-sekolah',DataPelanggaranSekolahController::class);

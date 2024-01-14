@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $akun = ['admin','keamanan','sma','ma','smk'];
+        $akun = ['admin','pondok','mts','ma','smk'];
 
         for ($i=0; $i < count($akun); $i++) {
             $user = new User;
@@ -25,13 +25,7 @@ class UserSeeder extends Seeder
             $user->password = Hash::make('password');
             $user->save();
 
-            if ($akun[$i] == 'admin') {
-                $user->assignRole('admin');
-            }elseif ($akun[$i] == 'keamanan') {
-                $user->assignRole('pondok');
-            }else{
-                $user->assignRole('sekolah');
-            }
+            $user->assignRole($akun[$i]);
         }
 
     }

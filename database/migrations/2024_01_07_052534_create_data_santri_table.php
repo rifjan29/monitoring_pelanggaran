@@ -21,7 +21,7 @@ return new class extends Migration
             $table->bigInteger('wali_santri_id');
             $table->bigInteger('asrama_id');
             $table->bigInteger('users_id');
-            $table->enum('kategori_sekolah',['smk','mts','sma']);
+            $table->enum('kategori_sekolah',['mts','ma','smk']);
             $table->timestamps();
         });
     }
