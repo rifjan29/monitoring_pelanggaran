@@ -1,8 +1,8 @@
 <x-app-layout>
-    @include('santri.modal.create')
-    @include('santri.modal.show')
-    @include('santri.modal.edit')
-    @include('santri.modal.update-status')
+    @include('pelanggaran-sekolah.modal.create')
+    @include('pelanggaran-sekolah.modal.show')
+    @include('pelanggaran-sekolah.modal.edit')
+    @include('pelanggaran-sekolah.modal.update-status')
     @push('js')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/datepicker.min.js"></script>
         <script>
@@ -167,7 +167,7 @@
                                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                     <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                                 </svg>
-                                Tambah Santri
+                                Tambah Pelanggaran
                             </button>
 
                         </div>
@@ -177,12 +177,10 @@
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th class="px-4 py-3">No</th>
-                                    <th scope="col" class="px-4 py-3">Foto</th>
-                                    <th scope="col" class="px-4 py-3">Nama Lengkap</th>
-                                    <th scope="col" class="px-4 py-3">Wali Santri</th>
-                                    <th scope="col" class="px-4 py-3">Asrama</th>
-                                    <th scope="col" class="px-4 py-3">Sekolah</th>
-                                    <th scope="col" class="px-4 py-3">Status Pondok</th>
+                                    <th scope="col" class="px-4 py-3">Nama Santri</th>
+                                    <th scope="col" class="px-4 py-3">Jenis Pelanggaran</th>
+                                    <th scope="col" class="px-4 py-3">Status Pelanggaran</th>
+                                    <th scope="col" class="px-4 py-3">Tanggal Pelanggaran</th>
                                     <th scope="col" class="px-4 py-3">
                                         <span class="sr-only">Actions</span>
                                     </th>
@@ -192,21 +190,18 @@
                                 @forelse ($data as $item)
                                     <tr class="border-b dark:border-gray-700">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ ucwords($item->santri->nama_lengkap) }}</th>
+                                        <td class="px-4 py-3">{{ ucwords($item->jenis_pelanggaran) }}</td>
                                         <td class="px-4 py-3">
-                                            <img class="h-auto max-w-12 rounded-lg" src="{{ $item->foto != null ? asset('storage/santri/'.$item->foto) : 'https://flowbite.com/docs/images/examples/image-2@2x.jpg' }}" alt="image description">
-                                        </td>
-                                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ ucwords($item->nama_lengkap) }}</th>
-                                        <td class="px-4 py-3">{{ $item->wali_santri?->nama }}</td>
-                                        <td class="px-4 py-3">{{ $item->asrama->nama_asrama }}</td>
-                                        <td class="px-4 py-3">{{ strtoupper($item->kategori_sekolah) }}</td>
-                                        <td class="px-4 py-3">
-                                            @if ($item->status_pondok == 'lanjut')
-                                                <a href="#" data-modal-target="update-status-modal" data-modal-toggle="update-status-modal" class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300 update-status" data-id="{{ $item->id }}">Lanjut di Pondok</a>
+                                            @if ($item->status_pelanggaran == 'sp1')
+                                                Surat Peringatan Pertama
+                                            @elseif ($item->status_pelanggaran == 'sp2')
+                                                Surat Peringatan Kedua
                                             @else
-                                                <a href="#" data-modal-target="update-status-modal" data-modal-toggle="update-status-modal" class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300 update-status" data-id="{{ $item->id }}">Boyong</a>
-                                                <span class="text-xs">Tanggal Boyong: {{ \Carbon\Carbon::parse($item->tanggal_lulus)->format('d F Y') }} </span>
+                                                Surat Peringatan Ketiga
                                             @endif
-                                        </td>
+                                        <td class="px-4 py-3">{{ \Carbon\Carbon::parse($item->tanggal_pelanggaran)->format('d F Y') }}</td>
+
                                         <td class="px-4 py-3 flex items-center justify-end align-baseline">
                                             <button id="{{ $item->id }}-button" data-dropdown-toggle="{{ $item->id }}-dropdown" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
                                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

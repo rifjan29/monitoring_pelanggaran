@@ -18,4 +18,8 @@ class PelanggaranSekolah extends Model
         'tanggal_pelanggaran',
         'user_id',
     ];
+
+    function santri() {
+        return $this->belongsTo(DataSantri::class,'santri_id','id');
+    }
 }

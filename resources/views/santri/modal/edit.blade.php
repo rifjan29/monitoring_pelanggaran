@@ -59,7 +59,7 @@
                                 <option value="smk">SMK</option>
                             </select>
                         </div>
-                        <div>
+                        {{-- <div>
                             <label for="asrama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Asrama</label>
                             <select id="asrama" name="asrama" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option value="0">Pilih Asrama</option>
@@ -67,8 +67,8 @@
                                     <option value="{{ $item->id }}">{{ ucwords($item->nama_asrama) .'-'. $item->wali_asuh }}</option>
                                 @endforeach
                             </select>
-                        </div>
-                        <div class="col-span-2 sm:col-span-2">
+                        </div> --}}
+                        {{-- <div class="col-span-2 sm:col-span-2">
                             <label for="wali_santri" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Wali Santri</label>
                             <select id="wali_santri" name="wali_santri" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option value="0">Pilih Wali Santri</option>
@@ -76,7 +76,7 @@
                                     <option value="{{ $item->id }}">{{ ucwords($item->nama) }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
                         <div class="col-span-2 sm:col-span-2">
                             <label for="wali_santri" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto Santri</label>
                             <img id="foto_santri" src="https://flowbite.com/docs/images/examples/image-2@2x.jpg" class="h-auto max-w-xs rounded-lg" alt="">

@@ -49,11 +49,19 @@
                     </div>
                     <div>
                         <label for="sekolah" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sekolah</label>
-                        <select id="sekolah" name="sekolah" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value="0">Pilih Sekolah</option>
-                            <option value="mts">MTS</option>
-                            <option value="ma">MA</option>
-                            <option value="smk">SMK</option>
+                        <select id="sekolah" name="sekolah" {{ !Auth::user()->hasRole('admin') ? 'readonly' : '' }} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            @if (Auth::user()->hasRole('mts'))
+                                <option value="mts" selected>MTS</option>
+                            @elseif (Auth::user()->hasRole('ma'))
+                                <option value="ma" selected>MA</option>
+                            @elseif (Auth::user()->hasRole('smk'))
+                                <option value="smk" selected>SMK</option>
+                            @else
+                                <option value="0">Pilih Sekolah</option>
+                                <option value="mts">MTS</option>
+                                <option value="ma">MA</option>
+                                <option value="smk">SMK</option>
+                            @endif
                         </select>
                     </div>
                     <div>
