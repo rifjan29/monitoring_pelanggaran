@@ -44,6 +44,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/search-user', [DataUserController::class, 'index'])->name('user.search');
         Route::resource('user', DataUserController::class);
         // pelanggaran sekolah
+        Route::get('pelanggaran-sekolah/cetak-pdf', [DataPelanggaranSekolahController::class, 'pdf'])->name('pelanggaran-sekolah.pdf');
+        Route::get('/search-pelanggaran-sekolah', [DataPelanggaranSekolahController::class, 'index'])->name('pelanggaran-sekolah.search');
         Route::resource('pelanggaran-sekolah',DataPelanggaranSekolahController::class);
         // pelanggaran pondok
         Route::resource('pelanggaran-pondok',DataPelanggaranPondokController::class);

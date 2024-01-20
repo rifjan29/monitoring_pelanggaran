@@ -2,7 +2,6 @@
     @include('pelanggaran-sekolah.modal.create')
     @include('pelanggaran-sekolah.modal.show')
     @include('pelanggaran-sekolah.modal.edit')
-    @include('pelanggaran-sekolah.modal.update-status')
     @push('js')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/datepicker.min.js"></script>
         <script>
@@ -10,7 +9,7 @@
             $('.show-data').on('click',function() {
                 let id = $(this).data('id');
                 $.ajax({
-                    url: `{{ route('santri.show', 1) }}`,
+                    url: `{{ route('pelanggaran-sekolah.show', 1) }}`,
                     data: {
                         id: id
                     },
@@ -18,20 +17,13 @@
                     success: (res) => {
                         console.log(res);
                         // Assuming you have a modal with an ID 'show-modal'
-                        $('#show-modal #nama_lengkap').val(res.nama_lengkap);
-                        $('#show-modal #asal').val(res.asal);
-                        $('#show-modal #tanggal_lahir').val(res.tanggal_lahir);
-                        $('#show-modal #jenis_kelamin').val(res.jenis_kelamin);
-                        $('#show-modal #sekolah').val(res.kategori_sekolah);
-                        $('#show-modal #asrama').val(res.asrama_id);
-                        $('#show-modal #wali_santri').val(res.wali_santri_id);
-                        $('#show-modal #alamat').val(res.alamat_lengkap);
-                        let path_name = `{{ asset('/storage/santri') }}`
-                        let path = `${path_name}/${res.foto}`
-                        $('#show-modal #foto_santri').attr('src',path)
-                        // Add more lines for other attributes
-                        $('#show-modal #status_sekolah').html(status_sekolah(res.status))
-                        $('#show-modal #status_pondok').html(status_sekolah(res.status_pondok))
+                        $('#show-modal #nama_lengkap').val(res.santri_id);
+                        $('#show-modal #jenis_pelanggaran').val(res.jenis_pelanggaran);
+                        $('#show-modal #status_pelanggaran').val(res.status_pelanggaran);
+                        $('#show-modal #tanggal_pelanggaran').val(res.tanggal_pelanggaran);
+                        $('#show-modal #keterangan_pelanggaran').val(res.keterangan_pelanggaran);
+                        $('#show-modal #status_sekolah').html(status_sekolah(res.santri.status))
+                        $('#show-modal #status_pondok').html(status_sekolah(res.santri.status_pondok))
 
                         // Show the modal
                         $('#show-modal').removeClass('hidden');
@@ -63,7 +55,7 @@
             $('.edit-data').on('click',function() {
                 let id = $(this).data('id');
                 $.ajax({
-                    url: `{{ route('santri.show', 1) }}`,
+                    url: `{{ route('pelanggaran-sekolah.edit', 1) }}`,
                     data: {
                         id: id
                     },
@@ -72,17 +64,14 @@
                         console.log(res);
                         // Assuming you have a modal with an ID 'show-modal'
                         $('#edit-modal #id').val(res.id);
-                        $('#edit-modal #nama_lengkap').val(res.nama_lengkap);
-                        $('#edit-modal #asal').val(res.asal);
-                        $('#edit-modal #tanggal_lahir').val(res.tanggal_lahir);
-                        $('#edit-modal #jenis_kelamin').val(res.jenis_kelamin);
-                        $('#edit-modal #sekolah').val(res.kategori_sekolah);
-                        $('#edit-modal #asrama').val(res.asrama_id);
-                        $('#edit-modal #wali_santri').val(res.wali_santri_id);
-                        $('#edit-modal #alamat').val(res.alamat_lengkap);
+                        $('#edit-modal #nama_lengkap').val(res.santri_id);
+                        $('#edit-modal #jenis_pelanggaran').val(res.jenis_pelanggaran);
+                        $('#edit-modal #status_pelanggaran').val(res.status_pelanggaran);
+                        $('#edit-modal #tanggal_pelanggaran').val(res.tanggal_pelanggaran);
+                        $('#edit-modal #keterangan_pelanggaran').val(res.keterangan_pelanggaran);
                         let path_name = `{{ asset('/storage/santri') }}`
-                        let path = `${path_name}/${res.foto}`
-                        $('#edit-modal #foto_santri').attr('src',path)
+                        let path = `${path_name}/${res.foto_bukti_pelanggaran}`
+                        $('#edit-modal #pelanggaran-sekolah').attr('src',path)
                         // Add more lines for other attributes
 
                         // Show the modal
@@ -91,28 +80,7 @@
                     }
                 })
             })
-            // update status pondok
-            $('.update-status').on('click',function() {
-                let id = $(this).data('id');
-                console.log(id);
-                $.ajax({
-                    url: `{{ route('santri.edit', 1) }}`,
-                    data: {
-                        id: id
-                    },
-                    method: "GET",
-                    success: (res) => {
-                        console.log(res);
-                        // Assuming you have a modal with an ID 'show-modal'
-                        $('#update-status-modal #id').val(res.id);
-                        $('#update-status-modal #nama_lengkap').val(res.nama_lengkap);
-                        $('#update-status-modal #status_pondok').val(res.status_pondok);
-                        // Show the modal
-                        $('#update-status-modal').removeClass('hidden');
 
-                    }
-                })
-            })
         </script>
     @endpush
     <div class="p-4 sm:ml-64">
@@ -147,10 +115,10 @@
         <div class="p-4">
             <div class="mx-auto max-w-full">
                 <!-- Start coding here -->
-                <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg h-screen">
                     <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                         <div class="w-full md:w-1/2">
-                            <form class="flex items-center" action="{{ route('santri.search-santri') }}" method="GET">
+                            <form class="flex items-center" action="{{ route('pelanggaran-sekolah.search') }}" method="GET">
                                 <label for="simple-search" class="sr-only">Search</label>
                                 <div class="relative w-full">
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -169,6 +137,12 @@
                                 </svg>
                                 Tambah Pelanggaran
                             </button>
+                            <a href="{{ route('pelanggaran-sekolah.pdf') }}"  class="flex items-center justify-center text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
+                                <svg class="h-3.5 w-3.5 mr-2 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 18a.969.969 0 0 0 .933 1h12.134A.97.97 0 0 0 15 18M1 7V5.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 1h8.239A.97.97 0 0 1 15 2v5M6 1v4a1 1 0 0 1-1 1H1m0 9v-5h1.5a1.5 1.5 0 1 1 0 3H1m12 2v-5h2m-2 3h2m-8-3v5h1.375A1.626 1.626 0 0 0 10 13.375v-1.75A1.626 1.626 0 0 0 8.375 10H7Z"/>
+                                </svg>
+                                Cetak Pelanggaran
+                            </a>
 
                         </div>
                     </div>
@@ -219,7 +193,7 @@
 
                                                 </ul>
                                                 <div class="py-1">
-                                                    <a href="{{ route('santri.destroy', $item->id) }}" data-confirm-delete="true" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
+                                                    <a href="{{ route('pelanggaran-sekolah.destroy', $item->id) }}" data-confirm-delete="true" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
                                                 </div>
                                             </div>
                                         </td>
