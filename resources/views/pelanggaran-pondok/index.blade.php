@@ -1,7 +1,7 @@
 <x-app-layout>
-    @include('pelanggaran-sekolah.modal.create')
-    @include('pelanggaran-sekolah.modal.show')
-    @include('pelanggaran-sekolah.modal.edit')
+    @include('pelanggaran-pondok.modal.create')
+    @include('pelanggaran-pondok.modal.show')
+    @include('pelanggaran-pondok.modal.edit')
     @push('js')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/datepicker.min.js"></script>
         <script>
@@ -9,7 +9,7 @@
             $('.show-data').on('click',function() {
                 let id = $(this).data('id');
                 $.ajax({
-                    url: `{{ route('pelanggaran-sekolah.show', 1) }}`,
+                    url: `{{ route('pelanggaran-pondok.show', 1) }}`,
                     data: {
                         id: id
                     },
@@ -19,7 +19,6 @@
                         // Assuming you have a modal with an ID 'show-modal'
                         $('#show-modal #nama_lengkap').val(res.santri_id);
                         $('#show-modal #jenis_pelanggaran').val(res.jenis_pelanggaran);
-                        $('#show-modal #status_pelanggaran').val(res.status_pelanggaran);
                         $('#show-modal #tanggal_pelanggaran').val(res.tanggal_pelanggaran);
                         $('#show-modal #keterangan_pelanggaran').val(res.keterangan_pelanggaran);
                         $('#show-modal #status_sekolah').html(status_sekolah(res.santri.status))
@@ -55,7 +54,7 @@
             $('.edit-data').on('click',function() {
                 let id = $(this).data('id');
                 $.ajax({
-                    url: `{{ route('pelanggaran-sekolah.edit', 1) }}`,
+                    url: `{{ route('pelanggaran-pondok.edit', 1) }}`,
                     data: {
                         id: id
                     },
@@ -66,13 +65,8 @@
                         $('#edit-modal #id').val(res.id);
                         $('#edit-modal #nama_lengkap').val(res.santri_id);
                         $('#edit-modal #jenis_pelanggaran').val(res.jenis_pelanggaran);
-                        $('#edit-modal #status_pelanggaran').val(res.status_pelanggaran);
                         $('#edit-modal #tanggal_pelanggaran').val(res.tanggal_pelanggaran);
                         $('#edit-modal #keterangan_pelanggaran').val(res.keterangan_pelanggaran);
-                        let path_name = `{{ asset('/storage/santri') }}`
-                        let path = `${path_name}/${res.foto_bukti_pelanggaran}`
-                        $('#edit-modal #pelanggaran-sekolah').attr('src',path)
-                        // Add more lines for other attributes
 
                         // Show the modal
                         $('#edit-modal').removeClass('hidden');
@@ -118,7 +112,7 @@
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg h-screen">
                     <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                         <div class="w-full md:w-1/2">
-                            <form class="flex items-center" action="{{ route('pelanggaran-sekolah.search') }}" method="GET">
+                            <form class="flex items-center" action="{{ route('pelanggaran-pondok.search') }}" method="GET">
                                 <label for="simple-search" class="sr-only">Search</label>
                                 <div class="relative w-full">
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -137,7 +131,7 @@
                                 </svg>
                                 Tambah Pelanggaran
                             </button>
-                            <a href="{{ route('pelanggaran-sekolah.pdf') }}"  class="flex items-center justify-center text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
+                            <a href="{{ route('pelanggaran-pondok.pdf') }}"  class="flex items-center justify-center text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
                                 <svg class="h-3.5 w-3.5 mr-2 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 20">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 18a.969.969 0 0 0 .933 1h12.134A.97.97 0 0 0 15 18M1 7V5.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 1h8.239A.97.97 0 0 1 15 2v5M6 1v4a1 1 0 0 1-1 1H1m0 9v-5h1.5a1.5 1.5 0 1 1 0 3H1m12 2v-5h2m-2 3h2m-8-3v5h1.375A1.626 1.626 0 0 0 10 13.375v-1.75A1.626 1.626 0 0 0 8.375 10H7Z"/>
                                 </svg>
@@ -153,7 +147,6 @@
                                     <th class="px-4 py-3">No</th>
                                     <th scope="col" class="px-4 py-3">Nama Santri</th>
                                     <th scope="col" class="px-4 py-3">Jenis Pelanggaran</th>
-                                    <th scope="col" class="px-4 py-3">Status Pelanggaran</th>
                                     <th scope="col" class="px-4 py-3">Tanggal Pelanggaran</th>
                                     <th scope="col" class="px-4 py-3">
                                         <span class="sr-only">Actions</span>
@@ -166,15 +159,6 @@
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                         <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ ucwords($item->santri->nama_lengkap) }}</th>
                                         <td class="px-4 py-3">{{ ucwords($item->jenis_pelanggaran) }}</td>
-                                        <td class="px-4 py-3">
-                                            @if ($item->status_pelanggaran == 'sp1')
-                                                Surat Peringatan Pertama
-                                            @elseif ($item->status_pelanggaran == 'sp2')
-                                                Surat Peringatan Kedua
-                                            @else
-                                                Surat Peringatan Ketiga
-                                            @endif
-                                        </td>
                                         <td class="px-4 py-3">{{ \Carbon\Carbon::parse($item->tanggal_pelanggaran)->format('d F Y') }}</td>
 
                                         <td class="px-4 py-3 flex items-center justify-end align-baseline">

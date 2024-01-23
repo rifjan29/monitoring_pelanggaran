@@ -48,6 +48,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/search-pelanggaran-sekolah', [DataPelanggaranSekolahController::class, 'index'])->name('pelanggaran-sekolah.search');
         Route::resource('pelanggaran-sekolah',DataPelanggaranSekolahController::class);
         // pelanggaran pondok
+        Route::get('pelanggaran-sekolah/cetak-pdf', [DataPelanggaranPondokController::class, 'pdf'])->name('pelanggaran-pondok.pdf');
+        Route::get('/search-pelanggaran-pondok', [DataPelanggaranPondokController::class, 'index'])->name('pelanggaran-pondok.search');
         Route::resource('pelanggaran-pondok',DataPelanggaranPondokController::class);
         // laporan
         Route::get('laporan',[LaporanController::class,'index'])->name('laporan.index');
