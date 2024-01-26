@@ -112,7 +112,7 @@
                     <div class="flex justify-between flex-row items-center px-4">
                         <div class="space-y-2">
                             <span class="text-sm font-medium text-gray-400 dark:text-gray-400">Total Pelanggaran Sekolah</span>
-                            <h2 class="text-4xl font-bold dark:text-white">2000</h2>
+                            <h2 class="text-4xl font-bold dark:text-white">{{ $count_pelanggaran_sekolah }}</h2>
                         </div>
                         <div class="bg-blue-400 rounded-lg h-fit px-5 py-5">
                             <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
@@ -125,7 +125,7 @@
                     <div class="flex justify-between flex-row items-center px-4">
                         <div class="space-y-2">
                             <span class="text-sm font-medium text-gray-400 dark:text-gray-400">Total Pelanggaran Pondok</span>
-                            <h2 class="text-4xl font-bold dark:text-white">2000</h2>
+                            <h2 class="text-4xl font-bold dark:text-white">{{ $count_pelanggaran_pondok }}</h2>
                         </div>
                         <div class="bg-blue-400 rounded-lg h-fit px-5 py-5">
                             <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
@@ -136,12 +136,9 @@
                 </div>
            </div>
 
-           <div class="grid grid-cols-3 gap-4 mb-4">
+           <div class="grid grid-cols-1 gap-4 mb-4">
               <div class="flex items-center col-span-2 justify-center rounded bg-gray-50 dark:bg-gray-800 w-full h-full">
                 <div id="chart" class="w-full"></div>
-              </div>
-              <div class="flex items-center justify-center rounded bg-gray-50  dark:bg-gray-800 w-full h-full">
-                <div id="chartPie" class="w-full"></div>
               </div>
 
            </div>
@@ -153,10 +150,18 @@
             var options = {
                 series: [{
                     name: 'Pelanggaran Sekolah',
-                    data: [31, 40, 28, 51, 42, 109, 100]
+                    data: [
+                        @foreach ($pelanggaran_sekolah as $item )
+                            {{ $item->total_data }},
+                        @endforeach
+                    ]
                 }, {
                     name: 'Pelanggaran Pondok',
-                    data: [11, 32, 45, 32, 34, 52, 41]
+                    data: [
+                        @foreach ($pelanggaran_pondok as $item )
+                            {{ $item->total_data }},
+                        @endforeach
+                    ]
                 }],
                 chart: {
                     height: 350,
@@ -170,7 +175,11 @@
                 },
                 xaxis: {
                     type: 'datetime',
-                    categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                    categories: [
+                        @foreach ($period as $item )
+                            `{{ $item }}`,
+                        @endforeach
+                    ]
                 },
                 tooltip: {
                     x: {

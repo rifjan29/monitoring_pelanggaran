@@ -15,4 +15,8 @@ class LaporanPondok extends Model
         'user_id'
     ];
 
+    function detailLaporan() {
+        return $this->hasMany(DetailLaporanPondok::class,'laporan_pondok_id');
+    }
+
 }

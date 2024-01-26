@@ -6,7 +6,7 @@
             <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Edit Santri
+                    Edit Pelanggaran Pondok
                 </h3>
                 <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="edit-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -18,7 +18,7 @@
             <!-- Modal body -->
             <div class="p-4 md:p-5 space-y-4">
                 <div class="w-full mx-auto" >
-                    <form action="{{ route('pelanggaran-sekolah.update',1) }}" method="POST" class="w-full mx-auto" enctype="multipart/form-data">
+                    <form action="{{ route('pelanggaran-pondok.update',1) }}" method="POST" class="w-full mx-auto" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <input type="hidden" id="id" name="id">
@@ -32,22 +32,13 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div>
+                        <div class="col-span-full">
                             <label for="jenis_pelanggaran" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Pelanggaran</label>
                             <select id="jenis_pelanggaran" name="jenis_pelanggaran" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option value="0">Pilih Jenis Pelanggaran</option>
                                 <option value="ringan">Ringan</option>
                                 <option value="sedang">Sedang</option>
                                 <option value="berat">Berat</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="status_pelanggaran" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status Pelanggaran</label>
-                            <select id="status_pelanggaran" name="status_pelanggaran" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="0">Pilih Status Pelanggaran</option>
-                                <option value="sp1">Surat Peringatan Pertama</option>
-                                <option value="sp2">Surat Peringatan Kedua</option>
-                                <option value="sp3">Surat Peringatan Ketiga</option>
                             </select>
                         </div>
                         <div class="col-span-2 sm:col-span-2">
@@ -60,18 +51,6 @@
                                 </div>
                                 <input datepicker type="text" name="tanggal_pelanggaran" id="tanggal_pelanggaran" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
                             </div>
-                        </div>
-                        <div class="col-span-2 sm:col-span-2">
-                            <label for="wali_santri" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto Bukti Pelanggaran</label>
-                            <img id="foto_santri" src="https://flowbite.com/docs/images/examples/image-2@2x.jpg" class="h-auto max-w-xs rounded-lg" alt="">
-                        </div>
-                        <div class="col-span-2 sm:col-span-2">
-                            <label for="wali_santri" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto</label>
-                            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help"
-                                    id="foto_bukti_pelanggaran"
-                                    type="file"
-                                    name="foto_bukti_pelanggaran">
-                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
                         </div>
                         <div class="col-span-2 sm:col-span-2">
                             <label for="keterangan_pelanggaran" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Keterangan Pelanggaran</label>

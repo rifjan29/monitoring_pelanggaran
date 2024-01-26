@@ -68,6 +68,7 @@ class DataPelanggaranPondokController extends Controller
             $pelanggaran->keterangan_pelanggaran = $request->get('keterangan_pelanggaran');
             $pelanggaran->tanggal_pelanggaran = Carbon::parse($request->get('tanggal_pelanggaran'));
             $pelanggaran->user_id = Auth::user()->id;
+            $pelanggaran->status_kirim = 'belum-terkirim';
             $pelanggaran->save();
 
             alert()->success('Sukses','Berhasil menambahkan data.');
@@ -81,17 +82,20 @@ class DataPelanggaranPondokController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
-        //
+
+        $data = PelanggaranPondok::with('santri')->find($request->id);
+        return $data;
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, string $id)
     {
-        //
+        $data = PelanggaranPondok::with('santri')->find($request->id);
+        return $data;
     }
 
     /**
@@ -99,7 +103,38 @@ class DataPelanggaranPondokController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validateData = Validator::make($request->all(),[
+            'nama_lengkap' => 'required|not_in:0',
+            'jenis_pelanggaran' => 'required|not_in:0',
+            'tanggal_pelanggaran' => 'required',
+        ]);
+        if ($validateData->fails()) {
+            $html = "<ol class='max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400'>";
+            foreach($validateData->errors()->getMessages() as $error) {
+                $html .= "<li>$error[0]</li>";
+            }
+            $html .= "</ol>";
+
+            alert()->html('Terjadi kesalahan eror!', $html, 'error')->autoClose(5000);
+            return redirect()->route('pelanggaran-pondok.index');
+        }
+
+        try {
+            $santri = DataSantri::find($request->get('nama_lengkap'));
+            $pelanggaran = PelanggaranPondok::find($request->get('id'));
+            $pelanggaran->santri_id = $request->get('nama_lengkap');
+            $pelanggaran->jenis_pelanggaran = $request->get('jenis_pelanggaran');
+            $pelanggaran->keterangan_pelanggaran = $request->get('keterangan_pelanggaran');
+            $pelanggaran->tanggal_pelanggaran = Carbon::parse($request->get('tanggal_pelanggaran'));
+            $pelanggaran->user_id = Auth::user()->id;
+            $pelanggaran->update();
+
+            alert()->success('Sukses','Berhasil mengganti data.');
+            return redirect()->route('pelanggaran-pondok.index');
+        } catch (Exception $e) {
+            alert()->error('Error', 'Terjadi Kesalahan');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -107,6 +142,19 @@ class DataPelanggaranPondokController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $pelanggaran = PelanggaranPondok::find($id);
+            $pelanggaran->delete();
+            alert()->success('Sukses','Berhasil dihapus.');
+            return redirect()->route('pelanggaran-pondok.index');
+        } catch (Exception $e) {
+            alert()->error('Error', 'Terjadi Kesalahan');
+            return redirect()->back();
+        }
+    }
+
+    function pdf() {
+        $param['data'] = PelanggaranPondok::with('santri')->latest()->get();
+        return view('pelanggaran-pondok.pdf',$param);
     }
 }

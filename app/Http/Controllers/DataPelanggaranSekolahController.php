@@ -78,6 +78,7 @@ class DataPelanggaranSekolahController extends Controller
             }
             $pelanggaran->tanggal_pelanggaran = Carbon::parse($request->get('tanggal_pelanggaran'));
             $pelanggaran->user_id = Auth::user()->id;
+            $pelanggaran->status_kirim = 'belum-terkirim';
             $pelanggaran->save();
 
             alert()->success('Sukses','Berhasil menambahkan data.');
@@ -168,7 +169,7 @@ class DataPelanggaranSekolahController extends Controller
             }
             $pelanggaran->delete();
             alert()->success('Sukses','Berhasil dihapus.');
-            return redirect()->route('santri.index');
+            return redirect()->route('pelanggaran-sekolah.index');
         } catch (Exception $e) {
             alert()->error('Error', 'Terjadi Kesalahan');
             return redirect()->back();

@@ -31,6 +31,12 @@
         </div>
     </body>
     <script>
+        var url = window.location;
+        $(window).on("load", function() {
+            $(".preloader").fadeOut("slow");
+        });
+    </script>
+    <script>
         // On page load or when changing themes, best to add inline in `head` to avoid FOUC
         var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
         var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');

@@ -6,7 +6,7 @@
             <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Detail Pelanggaran Santri
+                    Detail Pelanggaran Pondok
                 </h3>
                 <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="show-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -29,7 +29,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div>
+                        <div class="col-span-full">
                             <label for="jenis_pelanggaran" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Pelanggaran</label>
                             <select id="jenis_pelanggaran" name="jenis_pelanggaran" disabled class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option value="0">Pilih Jenis Pelanggaran</option>
@@ -38,16 +38,6 @@
                                 <option value="berat">Berat</option>
                             </select>
                         </div>
-                        <div>
-                            <label for="status_pelanggaran" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status Pelanggaran</label>
-                            <select id="status_pelanggaran" name="status_pelanggaran" disabled class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="0">Pilih Status Pelanggaran</option>
-                                <option value="sp1">Surat Peringatan Pertama</option>
-                                <option value="sp2">Surat Peringatan Kedua</option>
-                                <option value="sp3">Surat Peringatan Ketiga</option>
-                            </select>
-                        </div>
-
                         <div class="col-span-2 sm:col-span-2">
                             <label for="no_telp" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Pelanggaran</label>
                             <div class="relative w-full">

@@ -14,6 +14,7 @@ class PelanggaranPondok extends Model
         'jenis_pelanggaran',
         'keterangan_pelanggaran',
         'tanggal_pelanggaran',
+        'status_kirim',
         'user_id',
     ];
 

@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('test',[LaporanController::class,'generateLaporanWeek']);
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -48,11 +50,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/search-pelanggaran-sekolah', [DataPelanggaranSekolahController::class, 'index'])->name('pelanggaran-sekolah.search');
         Route::resource('pelanggaran-sekolah',DataPelanggaranSekolahController::class);
         // pelanggaran pondok
-        Route::get('pelanggaran-sekolah/cetak-pdf', [DataPelanggaranPondokController::class, 'pdf'])->name('pelanggaran-pondok.pdf');
+        Route::get('pelanggaran-pondok/cetak-pdf', [DataPelanggaranPondokController::class, 'pdf'])->name('pelanggaran-pondok.pdf');
         Route::get('/search-pelanggaran-pondok', [DataPelanggaranPondokController::class, 'index'])->name('pelanggaran-pondok.search');
         Route::resource('pelanggaran-pondok',DataPelanggaranPondokController::class);
         // laporan
         Route::get('laporan',[LaporanController::class,'index'])->name('laporan.index');
+        Route::get('laporan/detail/{id}',[LaporanController::class,'detail'])->name('laporan.detail');
+        Route::get('laporan/kirim-sekolah/{id}',[LaporanController::class,'kirimSekolah'])->name('laporan.kirim-sekolah');
+        Route::get('laporan/kirim-pondok/{id}',[LaporanController::class,'kirimPondok'])->name('laporan.kirim-pondok');
     });
 });
 

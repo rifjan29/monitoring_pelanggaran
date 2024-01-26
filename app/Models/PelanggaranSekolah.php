@@ -16,6 +16,7 @@ class PelanggaranSekolah extends Model
         'keterangan_pelanggaran',
         'foto_bukti_pelanggaran',
         'tanggal_pelanggaran',
+        'status_kirim',
         'user_id',
     ];
 
