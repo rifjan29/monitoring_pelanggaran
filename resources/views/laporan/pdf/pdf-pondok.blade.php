@@ -25,6 +25,29 @@
                 font-family: 'Tinos', serif;
                 font: 18pt;
             }
+
+            #customers {
+                font-family: Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            #customers td, #customers th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #customers tr:nth-child(even){background-color: #f2f2f2;}
+
+            #customers tr:hover {background-color: #ddd;}
+
+            #customers th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #04AA6D;
+                color: white;
+            }
             * {
                 box-sizing: border-box;
                 -moz-box-sizing: border-box;
@@ -78,47 +101,47 @@
 
                 <div class="text-center p-5">
                     <h5 class="fw-bold">LEMBAR CATATAN PELANGGARAN SANTRI</h5>
-                    <h5 class="fw-bold">PONDOK PESANTREN Miftahul Ulum</h5>
+                    <h5 class="fw-bold">PONDOK PESANTREN MIFTAHUL ULUM</h5>
                 </div>
                 <div class="container">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-responsive-sm">
+                            <table class="table table-bordered table-responsive-sm" id="customers">
                                 <tbody>
                                     <tr>
-                                        <td width="20%">Nama Lengkap</td>
+                                        <td width="30%">Nama Lengkap</td>
                                         <td width="1%">:</td>
                                         <td >{{ ucwords($data->santri->nama_lengkap) }}</td>
                                     </tr>
                                     <tr>
-                                        <td width="20%">Jenis Kelamin</td>
+                                        <td width="30%">Jenis Kelamin</td>
                                         <td width="1%">:</td>
                                         <td >
                                             {{ $data->santri->jenis_kelamin == 'l' ? 'Laki-Laki' : 'Perempuan'  }}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td width="20%">Asal</td>
+                                        <td width="30%">Asal</td>
                                         <td width="1%">:</td>
                                         <td >{{ $data->santri->asal }}</td>
                                     </tr>
                                     <tr>
-                                        <td width="20%">Wali Santri</td>
+                                        <td width="30%">Wali Santri</td>
                                         <td width="1%">:</td>
                                         <td >{{ $data->wali_santri->nama }}</td>
                                     </tr>
                                     <tr>
-                                        <td width="20%">Jenis Pelanggaran</td>
+                                        <td width="30%">Jenis Pelanggaran</td>
                                         <td width="1%">:</td>
                                         <td>{{ $data->jenis_pelanggaran }}</td>
                                     </tr>
                                     <tr>
-                                        <td width="20%">Tanggal Pelanggaran</td>
+                                        <td width="30%">Tanggal Pelanggaran</td>
                                         <td width="1%">:</td>
                                         <td>{{ \Carbon\Carbon::parse($data->tanggal_pelanggaran)->format('Y-m-d') }}</td>
                                     </tr>
                                     <tr>
-                                        <td width="20%">Keterangan Pelanggaran</td>
+                                        <td width="30%">Keterangan Pelanggaran</td>
                                         <td width="1%">:</td>
                                         <td >{{ $data->keterangan_pelanggaran }}</td>
                                     </tr>

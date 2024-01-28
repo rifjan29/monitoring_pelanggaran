@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('test',[LaporanController::class,'generateLaporanWeek']);
 
 Route::get('/', function () {
     return view('welcome');
@@ -58,6 +57,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('laporan/detail/{id}',[LaporanController::class,'detail'])->name('laporan.detail');
         Route::get('laporan/kirim-sekolah/{id}',[LaporanController::class,'kirimSekolah'])->name('laporan.kirim-sekolah');
         Route::get('laporan/kirim-pondok/{id}',[LaporanController::class,'kirimPondok'])->name('laporan.kirim-pondok');
+        // generate laporan
+        Route::get('laporan/generate-laporan',[LaporanController::class,'generateLaporanWeek'])->name('laporan.generate');
+
     });
 });
 

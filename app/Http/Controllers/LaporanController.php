@@ -130,13 +130,14 @@ class LaporanController extends Controller
                     $detail->save();
                 }
             }
+            alert()->success('Sukses','Berhasil Rekap Pelanggaran');
+            return redirect()->route('pelanggaran-sekolah.index');
         } catch (Exception $e) {
             DB::rollBack();
             return $e;
         } catch (QueryException $e) {
             DB::rollBack();
             return $e;
-
         }
     }
 

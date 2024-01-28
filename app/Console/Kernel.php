@@ -15,12 +15,12 @@ class Kernel extends ConsoleKernel
 
     protected $commands = [
         GenerateLaporanTask::class,
-        SendLaporanTask::class,
+        // SendLaporanTask::class,
     ];
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('app:generate-laporan-task')->weekly()->appendOutputTo(storage_path('logs/inspire.log'));
-        $schedule->command('app:send-laporan-task')->daily()->appendOutputTo(storage_path('logs/inspire.log'));
+        // $schedule->command('app:send-laporan-task')->daily()->appendOutputTo(storage_path('logs/inspire.log'));
 
     }
 

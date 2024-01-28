@@ -51,6 +51,8 @@ class DataPelanggaranSekolahController extends Controller
             'jenis_pelanggaran' => 'required|not_in:0',
             'status_pelanggaran' => 'required|not_in:0',
             'tanggal_pelanggaran' => 'required',
+            'jumlah_kehadiran' => 'required',
+            'jumlah_absen' => 'required',
         ]);
         if ($validateData->fails()) {
             $html = "<ol class='max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400'>";
@@ -79,6 +81,9 @@ class DataPelanggaranSekolahController extends Controller
             $pelanggaran->tanggal_pelanggaran = Carbon::parse($request->get('tanggal_pelanggaran'));
             $pelanggaran->user_id = Auth::user()->id;
             $pelanggaran->status_kirim = 'belum-terkirim';
+            $pelanggaran->jumlah_kehadiran = $request->get('jumlah_kehadiran');
+            $pelanggaran->jumlah_absen = $request->get('jumlah_absen');
+            $pelanggaran->keterangan_hadir = $request->get('keterangan_hadir');
             $pelanggaran->save();
 
             alert()->success('Sukses','Berhasil menambahkan data.');
