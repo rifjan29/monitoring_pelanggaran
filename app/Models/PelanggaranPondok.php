@@ -16,6 +16,9 @@ class PelanggaranPondok extends Model
         'tanggal_pelanggaran',
         'status_kirim',
         'user_id',
+        'jumlah_kehadiran',
+        'jumlah_absen',
+        'keterangan_hadir',
     ];
 
     function santri() {

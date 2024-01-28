@@ -83,7 +83,7 @@ class DataPelanggaranSekolahController extends Controller
             $pelanggaran->status_kirim = 'belum-terkirim';
             $pelanggaran->jumlah_kehadiran = $request->get('jumlah_kehadiran');
             $pelanggaran->jumlah_absen = $request->get('jumlah_absen');
-            $pelanggaran->keterangan_hadir = $request->get('keterangan_hadir');
+            $pelanggaran->keterangan_hadir =  $request->has('keterangan_hadir') ? $request->get('keterangan_hadir') : '-';
             $pelanggaran->save();
 
             alert()->success('Sukses','Berhasil menambahkan data.');

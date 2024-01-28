@@ -80,9 +80,57 @@ class LaporanController extends Controller
         alert()->success('Berhasil mengirimkan email');
         return redirect()->route('laporan.index');
     }
+    function generateLaporan() {
+        DB::beginTransaction();
+        try {
+            $noLaporan = null;
+            $tanggalSekarang = Carbon::now();
 
+            $data_laporan = LaporanPondok::whereDate('created_at',$tanggalSekarang)->get();
+            $date = Carbon::now()->format('dmy');
+            if($data_laporan->count() > 0) {
+                // Mengambil bagian kode yang merepresentasikan nomor urutan
+                $lastIncrement = (int) substr($data_laporan[0]->kode_laporan, -5);
+
+                // Menaikkan nomor urutan
+                $nextIncrement = $lastIncrement + 1;
+
+                // Memastikan nomor urutan selalu memiliki 5 digit
+                $formattedIncrement = str_pad($nextIncrement, 5, "0", STR_PAD_LEFT);
+            }
+            else {
+                $formattedIncrement = "00001";
+
+            }
+            DB::commit();
+            $noLaporan = 'LPP' . $date . $formattedIncrement;
+            $laporan = new LaporanPondok;
+            $laporan->kode_laporan = $noLaporan;
+            $laporan->tanggal = Carbon::now();
+            $laporan->user_id = Auth::user()->id;
+            $laporan->save();
+
+            $pelanggaran_laporan_sekolah = PelanggaranSekolah::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->where('user_id',Auth::user()->id)->get();
+            if (count($pelanggaran_laporan_sekolah) > 0 ) {
+                foreach ($pelanggaran_laporan_sekolah as $key => $value) {
+                    $detail = new DetailLaporanPondok;
+                    $detail->laporan_pondok_id = $laporan->id;
+                    $detail->pelanggaran_sekolah_id = $value->id;
+                    $detail->save();
+                }
+            }
+            alert()->success('Sukses','Berhasil Rekap Pelanggaran');
+            return redirect()->route('pelanggaran-sekolah.index');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $e;
+        } catch (QueryException $e) {
+            DB::rollBack();
+            return $e;
+        }
+    }
     function generateLaporanWeek() {
-        DB::beginTransaction();;
+        DB::beginTransaction();
         try {
             $noLaporan = null;
             $tanggalSekarang = Carbon::now();
@@ -91,7 +139,7 @@ class LaporanController extends Controller
             $date = Carbon::now()->format('dmy');
             if($data_laporan->count() > 0) {
                 // Mengambil bagian kode yang merepresentasikan nomor urutan
-                $lastIncrement = (int) substr($data_laporan[0]->kode, -5);
+                $lastIncrement = (int) substr($data_laporan[0]->kode_laporan, -5);
 
                 // Menaikkan nomor urutan
                 $nextIncrement = $lastIncrement + 1;
@@ -131,7 +179,7 @@ class LaporanController extends Controller
                 }
             }
             alert()->success('Sukses','Berhasil Rekap Pelanggaran');
-            return redirect()->route('pelanggaran-sekolah.index');
+            return redirect()->route('pelanggaran-pondok.index');
         } catch (Exception $e) {
             DB::rollBack();
             return $e;

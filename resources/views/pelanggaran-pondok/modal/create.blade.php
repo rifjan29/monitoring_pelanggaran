@@ -49,7 +49,25 @@
                             <input datepicker type="text" name="tanggal_pelanggaran" id="tanggal_pelanggaran" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
                         </div>
                     </div>
+                    <div class="col-span-full border p-4">
+                        <h4 class="font-bold mb-4">Rekap Absensi Diniyah</h4>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah Kehadiran</label>
+                                <input type="text" id="first_name" name="jumlah_kehadiran" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Jumlah Kehadiran" required>
+                            </div>
+                            <div>
+                                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah Absen</label>
+                                <input type="text" id="first_name" name="jumlah_absen" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Jumlah Absen" required>
+                            </div>
+                            <div class="col-span-full">
+                                <label for="keterangan_pelanggaran" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Keterangan Ketidakhadiran</label>
+                                <textarea id="keterangan_pelanggaran" name="keterangan_hadir" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Keterangan pelanggaran"></textarea>
+                                <span class="text-xs">Isi jika ada alasan ketidakhadiran siswa </span>
+                            </div>
+                        </div>
 
+                    </div>
 
                     <div class="col-span-2 sm:col-span-2">
                         <label for="keterangan_pelanggaran" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Keterangan Pelanggaran</label>

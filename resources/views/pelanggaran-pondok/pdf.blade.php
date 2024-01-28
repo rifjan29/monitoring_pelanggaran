@@ -100,6 +100,15 @@
                                     Status Pelanggaran
                                 </th>
                                 <th scope="col" class="px-6 py-3">
+                                    Jumlah Kehadiran
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Jumlah Absen
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Keterangan Kehadiran
+                                </th>
+                                <th scope="col" class="px-6 py-3">
                                     Tanggal Pelanggaran
                                 </th>
                                 <th scope="col" class="px-6 py-3">
@@ -119,15 +128,9 @@
                                     <td class="px-6 py-4">
                                         {{ ucwords($item->jenis_pelanggaran) }}
                                     </td>
-                                    <td class="px-6 py-4">
-                                        @if ($item->status_pelanggaran == 'sp1')
-                                            Surat Peringatan Pertama
-                                        @elseif ($item->status_pelanggaran == 'sp2')
-                                            Surat Peringatan Kedua
-                                        @else
-                                            Surat Peringatan Ketiga
-                                        @endif
-                                    </td>
+                                    <td>{{ $item->jumlah_kehadiran != null ? $item->jumlah_kehadiran :  '-' }}</td>
+                                    <td>{{ $item->jumlah_absen  != null ? $item->jumlah_absen : '-' }}</td>
+                                    <td>{{ $item->keterangan_hadir != null ? $item->keterangan_hadir : '-' }}</td>
                                     <td class="px-6 py-4">
                                         {{ \Carbon\Carbon::parse($item->tanggal_pelanggaran)->format('d F Y') }}
                                     </td>

@@ -136,6 +136,21 @@
                                         <td>{{ $data->jenis_pelanggaran }}</td>
                                     </tr>
                                     <tr>
+                                        <td width="20%">Jumlah Kehadiran</td>
+                                        <td width="1%">:</td>
+                                        <td>{{ $data->jumlah_kehadiran != null ? $data->jumlah_kehadiran :  '-' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Jumlah Absen</td>
+                                        <td width="1%">:</td>
+                                        <td>{{ $data->jumlah_absen  != null ? $data->jumlah_absen : '-' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Keterangan Kehadiran</td>
+                                        <td width="1%">:</td>
+                                        <td>{{ $data->keterangan_hadir != null ? $data->keterangan_hadir : '-' }}</td>
+                                    </tr>
+                                    <tr>
                                         <td width="30%">Tanggal Pelanggaran</td>
                                         <td width="1%">:</td>
                                         <td>{{ \Carbon\Carbon::parse($data->tanggal_pelanggaran)->format('Y-m-d') }}</td>

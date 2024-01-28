@@ -58,6 +58,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('laporan/kirim-sekolah/{id}',[LaporanController::class,'kirimSekolah'])->name('laporan.kirim-sekolah');
         Route::get('laporan/kirim-pondok/{id}',[LaporanController::class,'kirimPondok'])->name('laporan.kirim-pondok');
         // generate laporan
+        Route::get('laporan/generate-sekolah',[LaporanController::class,'generateLaporan'])->name('laporan.generate-sekolah');
         Route::get('laporan/generate-laporan',[LaporanController::class,'generateLaporanWeek'])->name('laporan.generate');
 
     });
