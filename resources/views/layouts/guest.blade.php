@@ -18,10 +18,7 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
             <div>
                 <a href="/">
-                    <div class="flex flex-col items-center">
-                        <x-application-logo class="w-20 h-20 fill-current text-gray-500 mx-auto" />
-                        <p class="font-bold">Pondok Pesantren Miftahul Ulum</p>
-                    </div>
+                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
                 </a>
             </div>
 
