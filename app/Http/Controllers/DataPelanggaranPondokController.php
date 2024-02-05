@@ -67,7 +67,7 @@ class DataPelanggaranPondokController extends Controller
             $pelanggaran = new PelanggaranPondok;
             $pelanggaran->santri_id = $request->get('nama_lengkap');
             $pelanggaran->jenis_pelanggaran = $request->get('jenis_pelanggaran');
-            $pelanggaran->keterangan_pelanggaran = $request->get('keterangan_pelanggaran');
+            $pelanggaran->keterangan_pelanggaran = $request->has('keterangan_pelanggaran') ? $request->get('keterangan_pelanggaran') : '-';
             $pelanggaran->tanggal_pelanggaran = Carbon::parse($request->get('tanggal_pelanggaran'));
             $pelanggaran->user_id = Auth::user()->id;
             $pelanggaran->status_kirim = 'belum-terkirim';

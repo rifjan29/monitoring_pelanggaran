@@ -156,6 +156,7 @@
                                     <th scope="col" class="px-4 py-3">Jumlah Kehadiran</th>
                                     <th scope="col" class="px-4 py-3">Jumlah Absen</th>
                                     <th scope="col" class="px-4 py-3">Keterangan Kehadiran</th>
+                                    <th scope="col" class="px-4 py-3">Keterangan Pelanggaran</th>
                                     <th scope="col" class="px-4 py-3">Tanggal Pelanggaran</th>
                                     <th scope="col" class="px-4 py-3">
                                         <span class="sr-only">Actions</span>
@@ -171,6 +172,7 @@
                                         <td class="px-4 py-3">{{ $item->jumlah_kehadiran != null ? $item->jumlah_kehadiran :  '-' }}</td>
                                         <td class="px-4 py-3">{{ $item->jumlah_absen  != null ? $item->jumlah_absen : '-'}}</td>
                                         <td class="px-4 py-3">{{ $item->keterangan_hadir != null ? $item->keterangan_hadir : '-' }}</td>
+                                        <td class="px-4 py-3">{{ $item->keterangan_pelanggaran != null ? $item->keterangan_pelanggaran : '-' }}</td>
                                         <td class="px-4 py-3">{{ \Carbon\Carbon::parse($item->tanggal_pelanggaran)->format('d F Y') }}</td>
 
                                         <td class="px-4 py-3 flex items-center justify-end align-baseline">
