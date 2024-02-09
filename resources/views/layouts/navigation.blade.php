@@ -9,7 +9,7 @@
                 </svg>
             </button>
             <a href="https://flowbite.com" class="flex ms-2 md:me-24">
-                <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
+                <img src="{{ asset('style/logo.jpg') }}" class="h-8 me-3" alt="FlowBite Logo" />
                 <span class="self-center text-base font-semibold  whitespace-nowrap dark:text-white">Monitoring Pelanggaran Santri</span>
             </a>
             </div>
